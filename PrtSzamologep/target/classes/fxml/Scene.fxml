@@ -8,10 +8,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" fx:id="calc" blendMode="DARKEN" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.fxproba.FXMLController">
+<AnchorPane id="AnchorPane" fx:id="calc" blendMode="DARKEN" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.unideb.inf.maven.prtszamologep.CalcController">
     <children>
       <Button fx:id="calcbutton" layoutX="250.0" layoutY="550.0" maxWidth="-Infinity" minWidth="-Infinity" onAction="#calculate" prefHeight="26.0" prefWidth="100.0" text="Calculate" />
-      <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
       <TextField fx:id="elso" layoutX="100.0" layoutY="150.0" prefHeight="25.0" prefWidth="400.0" />
       <TextField fx:id="masodik" layoutX="100.0" layoutY="175.0" prefHeight="25.0" prefWidth="400.0" />
       <RadioButton fx:id="binbut" layoutX="23.0" layoutY="310.0" mnemonicParsing="false" text="Binary" />
@@ -40,3 +39,4 @@
       <Button fx:id="divide" layoutX="445.0" layoutY="400.0" mnemonicParsing="false" onAction="#divAction" prefHeight="30.0" prefWidth="62.0" text="/" />
     </children>
 </AnchorPane>
+

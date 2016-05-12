@@ -1,7 +1,8 @@
-package com.mycompany.fxproba;
+package hu.unideb.inf.maven.prtszamologep;
 
 import java.math.BigInteger;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,12 +11,15 @@ import javafx.scene.control.*;
 
 
 
-public class FXMLController implements Initializable {
+public class CalcController implements Initializable {
     
     private int num;
     private String first;
     private String second;
     private String sign;
+    private List<String> signs;
+    private List<String> numbers;
+    
     @FXML
     ToggleGroup szamrendszer = new ToggleGroup();
     @FXML
@@ -24,8 +28,6 @@ public class FXMLController implements Initializable {
     private RadioButton calculate;
     @FXML
     private RadioButton convert;
-    @FXML
-    private Label label;
     @FXML
     private Button calcbutton;
     @FXML
@@ -60,6 +62,7 @@ public class FXMLController implements Initializable {
     private Button nine;
     @FXML
     private TextField elso = new TextField();
+    private int elsoLength;
     @FXML
     private TextField masodik = new TextField();
     @FXML
@@ -70,7 +73,15 @@ public class FXMLController implements Initializable {
     private RadioButton hexbut = new RadioButton();
     @FXML
     private CheckBox reverse = new CheckBox();
-    
+
+    public int getElsoLength() {
+        return elsoLength;
+    }
+
+    public void setElsoLength() {
+        this.elsoLength = elso.getText().length();
+    }
+        
     public int getNum() {
         return num;
     }
@@ -110,6 +121,8 @@ public class FXMLController implements Initializable {
     
         elso.clear();
         masodik.clear();
+        setElsoLength();
+        setSign("");
     }
     
     @FXML
@@ -164,27 +177,31 @@ public class FXMLController implements Initializable {
     }
     @FXML
     private void addAction(ActionEvent event){
-        setFirst(elso.getText());
-        setSign("+");
+        numbers.add(elso.getText().substring(elsoLength));
+        signs.add("+");
         elso.setText(elso.getText() + "+");
+        setElsoLength();
     }
     @FXML
     private void subAction(ActionEvent event){
-        setFirst(elso.getText());
-        setSign("-");
+        numbers.add(elso.getText().substring(elsoLength));
+        signs.add("-");
         elso.setText(elso.getText() + "-");
+        setElsoLength();
     }
     @FXML
     private void multiAction(ActionEvent event){
-        setFirst(elso.getText());
-        setSign("*");
+        numbers.add(elso.getText().substring(elsoLength));
+        signs.add("*");
         elso.setText(elso.getText() + "*");
+        setElsoLength();
     }
     @FXML
     private void divAction(ActionEvent event){
-        setFirst(elso.getText());
-        setSign("/");
+        numbers.add(elso.getText().substring(elsoLength));
+        signs.add("/");
         elso.setText(elso.getText() + "/");
+        setElsoLength();
     }
     
     private void converting(int numb,boolean vissza){
@@ -221,8 +238,9 @@ public class FXMLController implements Initializable {
         sub.setDisable(false);
         multi.setDisable(false);
         divide.setDisable(false);
-        elso.clear();
-        masodik.clear();
+       // elso.clear();
+       // masodik.clear();
+        clearbutton.fire();
     }
     @FXML
     private void setConvertMode(ActionEvent event){
@@ -236,17 +254,27 @@ public class FXMLController implements Initializable {
         sub.setDisable(true);
         multi.setDisable(true);
         divide.setDisable(true);
-        elso.clear();
-        masodik.clear();
+       // elso.clear();
+       // masodik.clear();
+        clearbutton.fire();
     }
+    
+    @FXML
+    private void listing() {
+    
+        
+    
+    }
+    
     @FXML
     private void calculate(ActionEvent event) {
         masodik.clear();
+        BigInteger input;
         switch(getSign()){
             
             case "+":
                 setSecond(elso.getText().substring(first.length()+1));
-                BigInteger input = new BigInteger(first);
+                input = new BigInteger(first);
                 masodik.setText(input.add(new BigInteger(second)).toString());
                 break;
             
@@ -298,6 +326,7 @@ public class FXMLController implements Initializable {
         sub.setDisable(true);
         multi.setDisable(true);
         divide.setDisable(true);
+        setElsoLength();
         setSign("");
         
         

@@ -10,7 +10,7 @@
 
 <AnchorPane id="AnchorPane" fx:id="calc" blendMode="DARKEN" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.fxproba.FXMLController">
     <children>
-      <Button fx:id="calcbutton" layoutX="250.0" layoutY="550.0" maxWidth="-Infinity" minWidth="-Infinity" onAction="#handleButtonAction" prefHeight="26.0" prefWidth="100.0" text="Calculate" />
+      <Button fx:id="calcbutton" layoutX="250.0" layoutY="550.0" maxWidth="-Infinity" minWidth="-Infinity" onAction="#calculate" prefHeight="26.0" prefWidth="100.0" text="Calculate" />
       <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
       <TextField fx:id="elso" layoutX="100.0" layoutY="150.0" prefHeight="25.0" prefWidth="400.0" />
       <TextField fx:id="masodik" layoutX="100.0" layoutY="175.0" prefHeight="25.0" prefWidth="400.0" />
@@ -32,7 +32,11 @@
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
       <Text disable="true" layoutX="51.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Result:" wrappingWidth="49.99999669889803" />
-      <RadioButton fx:id="convert" layoutX="23.0" layoutY="250.0" mnemonicParsing="false" text="Convert mode" />
-      <RadioButton fx:id="calculate" layoutX="445.0" layoutY="250.0" mnemonicParsing="false" text="Calculator mode" />
+      <RadioButton fx:id="convert" layoutX="23.0" layoutY="250.0" mnemonicParsing="false" onAction="#setConvertMode" text="Convert mode" />
+      <RadioButton fx:id="calculate" layoutX="445.0" layoutY="250.0" mnemonicParsing="false" onAction="#setCalcMode" text="Calculator mode" />
+      <Button fx:id="add" layoutX="445.0" layoutY="310.0" mnemonicParsing="false" onAction="#addAction" prefHeight="30.0" prefWidth="62.0" text="+" />
+      <Button fx:id="sub" layoutX="445.0" layoutY="340.0" mnemonicParsing="false" onAction="#subAction" prefHeight="30.0" prefWidth="62.0" text="-" />
+      <Button fx:id="multi" layoutX="445.0" layoutY="370.0" mnemonicParsing="false" onAction="#multiAction" prefHeight="30.0" prefWidth="62.0" text="*" />
+      <Button fx:id="divide" layoutX="445.0" layoutY="400.0" mnemonicParsing="false" onAction="#divAction" prefHeight="30.0" prefWidth="62.0" text="/" />
     </children>
 </AnchorPane>
