@@ -2,6 +2,7 @@ package hu.unideb.inf.maven.prtszamologep;
 
 import java.math.BigInteger;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -17,8 +18,9 @@ public class CalcController implements Initializable {
     private String first;
     private String second;
     private String sign;
-    private List<String> signs;
-    private List<String> numbers;
+    private int signIndex;
+    private ArrayList<String> signs = new ArrayList<String>();
+    private ArrayList<String> numbers = new ArrayList<String>();
     
     @FXML
     ToggleGroup szamrendszer = new ToggleGroup();
@@ -113,6 +115,14 @@ public class CalcController implements Initializable {
     public void setSign(String sign) {
         this.sign = sign;
     }
+
+    public int getSignIndex() {
+        return signIndex;
+    }
+
+    public void setSignIndex(int signIndex) {
+        this.signIndex = signIndex;
+    }
     
     
     
@@ -123,6 +133,8 @@ public class CalcController implements Initializable {
         masodik.clear();
         setElsoLength();
         setSign("");
+        numbers.clear();
+        signs.clear();
     }
     
     @FXML
@@ -205,12 +217,12 @@ public class CalcController implements Initializable {
     }
     
     private void converting(int numb,boolean vissza){
-        
+             BigInteger input;
             if(vissza){ 
               try{
                     //masodik.setText(Integer.toString(Integer.parseInt(elso.getText(),numb)));
-                 BigInteger input = new BigInteger(elso.getText(),numb);
-                 masodik.setText(input.toString()); 
+                 input = new BigInteger(elso.getText(),numb);
+                 numbers.set(0,input.toString()); 
                }catch(NumberFormatException e){
                     masodik.setText("Hiba: Nem megfelelő karakter(ek)");
                }
@@ -219,8 +231,8 @@ public class CalcController implements Initializable {
          else{ 
                 
               //masodik.setText(Integer.toString(Integer.parseInt(elso.getText()),numb));    
-              BigInteger input = new BigInteger(elso.getText());
-              masodik.setText(input.toString(numb)); 
+              input = new BigInteger(elso.getText());
+              numbers.set(0,input.toString(numb)); 
               
         }
          
@@ -260,55 +272,94 @@ public class CalcController implements Initializable {
     }
     
     @FXML
-    private void listing() {
-    
-        
-    
-    }
-    
-    @FXML
     private void calculate(ActionEvent event) {
+        numbers.add(elso.getText().substring(elsoLength));
         masodik.clear();
         BigInteger input;
-        switch(getSign()){
+        if(numbers.size() == 1) {
             
-            case "+":
-                setSecond(elso.getText().substring(first.length()+1));
-                input = new BigInteger(first);
-                masodik.setText(input.add(new BigInteger(second)).toString());
-                break;
-            
-            case "-":
-                setSecond(elso.getText().substring(first.length()+1));
-                input = new BigInteger(first);
-                masodik.setText(input.subtract(new BigInteger(second)).toString());
-                break;
-            
-            case "*":
-                setSecond(elso.getText().substring(first.length()+1));
-                input = new BigInteger(first);
-                masodik.setText(input.multiply(new BigInteger(second)).toString());
-                break;
-            
-            case "/":
-                try{                
-                    setSecond(elso.getText().substring(first.length()+1));
-                    input = new BigInteger(first);
-                    masodik.setText(input.divide(new BigInteger(second)).toString());
-                    break; 
-                }catch (ArithmeticException e){
-                     masodik.setText("Hiba: 0-val nem osztunk!");
-                     break;
-                }
-               
-                
-            default:   
-                if(binbut.isSelected() == true) setNum(2);
-                if(oktbut.isSelected() == true) setNum(8);
-                if(hexbut.isSelected() == true) setNum(16); 
-                converting(getNum(),reverse.isSelected());
-                break;
+            if(binbut.isSelected() == true) setNum(2);
+            if(oktbut.isSelected() == true) setNum(8);
+            if(hexbut.isSelected() == true) setNum(16); 
+            converting(getNum(),reverse.isSelected());           
         }
+        
+        while(numbers.size() > 1) {           
+            if(signs.indexOf("*") < signs.indexOf("/")) {
+                
+                if(signs.indexOf("*") >= 0){
+                    setSign("*");    
+                    setSignIndex(signs.indexOf("*"));
+                }
+                else{
+                
+                    if(signs.indexOf("/") >= 0){
+                        setSign("/");    
+                        setSignIndex(signs.indexOf("/"));
+                    }
+                }
+            }
+            else if(signs.indexOf("*") == signs.indexOf("/")){
+                setSign(signs.get(0));
+                setSignIndex(0);
+            }
+            else {
+            
+                setSign("/");    
+                setSignIndex(signs.indexOf("/"));           
+            }
+            
+            switch(getSign()){
+
+                case "+":
+                    setSecond(numbers.get(getSignIndex()+1));
+                    input = new BigInteger(numbers.get(getSignIndex()));
+                    numbers.set(getSignIndex(),input.add(new BigInteger(second)).toString());
+                    numbers.remove(numbers.get(getSignIndex()+1));
+                    signs.remove(numbers.get(getSignIndex()));
+                    signs.toArray();
+                    break;
+
+                case "-":
+                    setSecond(numbers.get(getSignIndex()+1));
+                    input = new BigInteger(numbers.get(getSignIndex()));
+                    numbers.set(getSignIndex(),input.subtract(new BigInteger(second)).toString());
+                    numbers.remove(numbers.get(getSignIndex()+1));
+                    signs.remove(numbers.get(getSignIndex()));
+                    signs.toArray();
+                    break;
+
+                case "*":
+                    setSecond(numbers.get(getSignIndex()+1));
+                    input = new BigInteger(numbers.get(getSignIndex()));
+                    numbers.set(getSignIndex(),input.multiply(new BigInteger(second)).toString());
+                    numbers.remove(numbers.get(getSignIndex()+1));
+                    signs.remove(numbers.get(getSignIndex()));
+                    signs.toArray();
+                    break;
+
+                case "/":
+                    try{                
+                        setSecond(numbers.get(getSignIndex()+1));
+                        input = new BigInteger(numbers.get(getSignIndex()));
+                        numbers.set(getSignIndex(),input.divide(new BigInteger(second)).toString());
+                        numbers.remove(numbers.get(getSignIndex()+1));
+                        signs.remove(numbers.get(getSignIndex()));
+                        signs.toArray();
+                        break; 
+                    }catch (ArithmeticException e){
+                        masodik.setText("Hiba: 0-val nem osztunk!");
+                        break;
+                    }
+
+
+                default:   
+                    break;
+            }
+    
+        }
+        
+        masodik.setText(numbers.get(0));
     }
     
     
