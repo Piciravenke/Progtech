@@ -3,6 +3,7 @@ package hu.unideb.inf.maven.prtszamologep;
 import java.math.BigInteger;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -19,8 +20,8 @@ public class CalcController implements Initializable {
     private String second;
     private String sign;
     private int signIndex;
-    private ArrayList<String> signs = new ArrayList<String>();
-    private ArrayList<String> numbers = new ArrayList<String>();
+    private LinkedList<String> signs = new LinkedList<String>();
+    private LinkedList<String> numbers = new LinkedList<String>();
     
     @FXML
     ToggleGroup szamrendszer = new ToggleGroup();
@@ -360,6 +361,9 @@ public class CalcController implements Initializable {
         }
         
         masodik.setText(numbers.get(0));
+        signs.clear();
+        numbers.clear();
+        numbers.add(masodik.getText());
     }
     
     
