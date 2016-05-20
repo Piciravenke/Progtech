@@ -2,6 +2,7 @@ package hu.unideb.inf.maven.prtszamologep;
 
 import java.math.BigInteger;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,6 +11,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 
 
@@ -180,23 +184,31 @@ public class CalcController implements Initializable {
     }
     
     @FXML
-    private void calculate(ActionEvent event) {
-        Calculator calc = new Calculator();
-        
+    private void calculate(ActionEvent event) {        
+        String method = null;
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
+        EntityManager em = emf.createEntityManager();
+        CalculatorService service = new CalculatorService(em);
         try{    
             if(convert.isSelected()) {
-
+                method = "Convert";   
                 if(binbut.isSelected() == true) setNum(2);
                 if(oktbut.isSelected() == true) setNum(8);
                 if(hexbut.isSelected() == true) setNum(16); 
                 masodik.setText(Calculate.converting(getNum(),reverse.isSelected(),elso.getText()));           
             }
 
-            if(calculate.isSelected())
-            masodik.setText(Calculate.calculate(Calculate.chopping(elso.getText())));
+            if(calculate.isSelected()){
+                method = "Calculate";
+                masodik.setText(Calculate.calculate(Calculate.chopping(elso.getText())));
+            }
         }catch(Exception e) {
+            method = "Calculate";
             masodik.setText("Hiba: Nem megfelelő karakter(ek)!");
         }
+        
+       service.createCalculator( elso.getText(), masodik.getText(), method, LocalDateTime.now().toString());
+        
     }
     
     

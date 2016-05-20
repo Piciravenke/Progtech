@@ -15,22 +15,26 @@ import javax.persistence.*;
 public class Calculator {
     
     @Id
-    @Column(name = "id")
+    @Column(name = "num")
+    
+	@SequenceGenerator(name = "IdGenerator", sequenceName = "num_generator", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "IdGenerator")
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     int id;
-    @Column(name = "expression")
+    @Column(name = "expr")
     private String expression;
-    @Column(name = "result")
+    @Column(name = "res")
     private String result;
-    @Column(name = "method")
+    @Column(name = "met")
     private String method;
-    @Column(name = "date")
+    @Column(name = "dat")
     private String date;
 
     public Calculator() {
     }
 
-    public Calculator(int id,String expression, String result, String method, String date) {
-        this.id = id;
+    public Calculator(String expression, String result, String method, String date) {
+        
         this.expression = expression;
         this.result = result;
         this.method = method;
@@ -67,6 +71,14 @@ public class Calculator {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     
     
