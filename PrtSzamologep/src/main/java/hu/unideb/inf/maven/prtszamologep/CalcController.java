@@ -16,13 +16,6 @@ import javafx.scene.control.*;
 public class CalcController implements Initializable {
     
     private int num;
-    private String first;
-    private String second;
-    private String sign;
-    private int signIndex;
-    private LinkedList<String> signs = new LinkedList<String>();
-    private LinkedList<String> numbers = new LinkedList<String>();
-    
     @FXML
     ToggleGroup szamrendszer = new ToggleGroup();
     @FXML
@@ -65,7 +58,6 @@ public class CalcController implements Initializable {
     private Button nine;
     @FXML
     private TextField elso = new TextField();
-    private int elsoLength;
     @FXML
     private TextField masodik = new TextField();
     @FXML
@@ -77,14 +69,6 @@ public class CalcController implements Initializable {
     @FXML
     private CheckBox reverse = new CheckBox();
 
-    public int getElsoLength() {
-        return elsoLength;
-    }
-
-    public void setElsoLength() {
-        this.elsoLength = elso.getText().length();
-    }
-        
     public int getNum() {
         return num;
     }
@@ -93,49 +77,10 @@ public class CalcController implements Initializable {
         this.num = num;
     }
 
-    public String getFirst() {
-        return first;
-    }
-
-    public void setFirst(String first) {
-        this.first = first;
-    }
-
-    public String getSecond() {
-        return second;
-    }
-
-    public void setSecond(String second) {
-        this.second = second;
-    }
-
-    public String getSign() {
-        return sign;
-    }
-
-    public void setSign(String sign) {
-        this.sign = sign;
-    }
-
-    public int getSignIndex() {
-        return signIndex;
-    }
-
-    public void setSignIndex(int signIndex) {
-        this.signIndex = signIndex;
-    }
-    
-    
-    
     @FXML
-    private void clearAction(ActionEvent event){
-    
+    private void clearAction(ActionEvent event){    
         elso.clear();
-        masodik.clear();
-        setElsoLength();
-        setSign("");
-        numbers.clear();
-        signs.clear();
+        masodik.clear();        
     }
     
     @FXML
@@ -189,56 +134,22 @@ public class CalcController implements Initializable {
         elso.setText(elso.getText() + "0");
     }
     @FXML
-    private void addAction(ActionEvent event){
-        numbers.add(elso.getText().substring(elsoLength));
-        signs.add("+");
-        elso.setText(elso.getText() + "+");
-        setElsoLength();
+    private void addAction(ActionEvent event){                
+        elso.setText(elso.getText() + "+");        
     }
     @FXML
-    private void subAction(ActionEvent event){
-        numbers.add(elso.getText().substring(elsoLength));
-        signs.add("-");
-        elso.setText(elso.getText() + "-");
-        setElsoLength();
+    private void subAction(ActionEvent event){       
+        elso.setText(elso.getText() + "-");      
     }
     @FXML
-    private void multiAction(ActionEvent event){
-        numbers.add(elso.getText().substring(elsoLength));
-        signs.add("*");
-        elso.setText(elso.getText() + "*");
-        setElsoLength();
+    private void multiAction(ActionEvent event){       
+        elso.setText(elso.getText() + "*");        
     }
     @FXML
     private void divAction(ActionEvent event){
-        numbers.add(elso.getText().substring(elsoLength));
-        signs.add("/");
-        elso.setText(elso.getText() + "/");
-        setElsoLength();
+        elso.setText(elso.getText() + "/");        
     }
     
-    private void converting(int numb,boolean vissza){
-             BigInteger input;
-            if(vissza){ 
-              try{
-                    //masodik.setText(Integer.toString(Integer.parseInt(elso.getText(),numb)));
-                 input = new BigInteger(elso.getText(),numb);
-                 numbers.set(0,input.toString()); 
-               }catch(NumberFormatException e){
-                    masodik.setText("Hiba: Nem megfelelő karakter(ek)");
-               }
-            }
-        
-         else{ 
-                
-              //masodik.setText(Integer.toString(Integer.parseInt(elso.getText()),numb));    
-              input = new BigInteger(elso.getText());
-              numbers.set(0,input.toString(numb)); 
-              
-        }
-         
-        
-    }
     @FXML
     private void setCalcMode(ActionEvent event){
         for (Toggle t : szamrendszer.getToggles()) {  
@@ -251,8 +162,6 @@ public class CalcController implements Initializable {
         sub.setDisable(false);
         multi.setDisable(false);
         divide.setDisable(false);
-       // elso.clear();
-       // masodik.clear();
         clearbutton.fire();
     }
     @FXML
@@ -266,104 +175,22 @@ public class CalcController implements Initializable {
         add.setDisable(true);
         sub.setDisable(true);
         multi.setDisable(true);
-        divide.setDisable(true);
-       // elso.clear();
-       // masodik.clear();
+        divide.setDisable(true);       
         clearbutton.fire();
     }
     
     @FXML
     private void calculate(ActionEvent event) {
-        numbers.add(elso.getText().substring(elsoLength));
-        masodik.clear();
-        BigInteger input;
-        if(numbers.size() == 1) {
+        if(convert.isSelected()) {
             
             if(binbut.isSelected() == true) setNum(2);
             if(oktbut.isSelected() == true) setNum(8);
             if(hexbut.isSelected() == true) setNum(16); 
-            converting(getNum(),reverse.isSelected());           
+            masodik.setText(Calculate.converting(getNum(),reverse.isSelected(),elso.getText()));           
         }
         
-        while(numbers.size() > 1) {           
-            if(signs.indexOf("*") < signs.indexOf("/")) {
-                
-                if(signs.indexOf("*") >= 0){
-                    setSign("*");    
-                    setSignIndex(signs.indexOf("*"));
-                }
-                else{
-                
-                    if(signs.indexOf("/") >= 0){
-                        setSign("/");    
-                        setSignIndex(signs.indexOf("/"));
-                    }
-                }
-            }
-            else if(signs.indexOf("*") == signs.indexOf("/")){
-                setSign(signs.get(0));
-                setSignIndex(0);
-            }
-            else {
-            
-                setSign("/");    
-                setSignIndex(signs.indexOf("/"));           
-            }
-            
-            switch(getSign()){
-
-                case "+":
-                    setSecond(numbers.get(getSignIndex()+1));
-                    input = new BigInteger(numbers.get(getSignIndex()));
-                    numbers.set(getSignIndex(),input.add(new BigInteger(second)).toString());
-                    numbers.remove(numbers.get(getSignIndex()+1));
-                    signs.remove(numbers.get(getSignIndex()));
-                    signs.toArray();
-                    break;
-
-                case "-":
-                    setSecond(numbers.get(getSignIndex()+1));
-                    input = new BigInteger(numbers.get(getSignIndex()));
-                    numbers.set(getSignIndex(),input.subtract(new BigInteger(second)).toString());
-                    numbers.remove(numbers.get(getSignIndex()+1));
-                    signs.remove(numbers.get(getSignIndex()));
-                    signs.toArray();
-                    break;
-
-                case "*":
-                    setSecond(numbers.get(getSignIndex()+1));
-                    input = new BigInteger(numbers.get(getSignIndex()));
-                    numbers.set(getSignIndex(),input.multiply(new BigInteger(second)).toString());
-                    numbers.remove(numbers.get(getSignIndex()+1));
-                    signs.remove(numbers.get(getSignIndex()));
-                    signs.toArray();
-                    break;
-
-                case "/":
-                    try{                
-                        setSecond(numbers.get(getSignIndex()+1));
-                        input = new BigInteger(numbers.get(getSignIndex()));
-                        numbers.set(getSignIndex(),input.divide(new BigInteger(second)).toString());
-                        numbers.remove(numbers.get(getSignIndex()+1));
-                        signs.remove(numbers.get(getSignIndex()));
-                        signs.toArray();
-                        break; 
-                    }catch (ArithmeticException e){
-                        masodik.setText("Hiba: 0-val nem osztunk!");
-                        break;
-                    }
-
-
-                default:   
-                    break;
-            }
-    
-        }
-        
-        masodik.setText(numbers.get(0));
-        signs.clear();
-        numbers.clear();
-        numbers.add(masodik.getText());
+        if(calculate.isSelected())
+        masodik.setText(Calculate.calculate(Calculate.chopping(elso.getText())).get(0));
     }
     
     
@@ -380,10 +207,6 @@ public class CalcController implements Initializable {
         add.setDisable(true);
         sub.setDisable(true);
         multi.setDisable(true);
-        divide.setDisable(true);
-        setElsoLength();
-        setSign("");
-        
-        
+        divide.setDisable(true);                               
     }    
 }

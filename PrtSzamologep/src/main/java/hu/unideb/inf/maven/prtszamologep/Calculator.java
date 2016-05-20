@@ -48,9 +48,5 @@ public class Calculator {
 
     public void setMethod(String method) {
         this.method = method;
-    }
-    
-    
-    
-    
+    }    
 }

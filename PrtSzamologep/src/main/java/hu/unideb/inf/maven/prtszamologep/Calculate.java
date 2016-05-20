@@ -5,6 +5,7 @@
  */
 package hu.unideb.inf.maven.prtszamologep;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,19 +17,63 @@ import java.util.List;
 public class Calculate {
    
     
-    public List<String> calculate(List<String> list) {
-        
-        while(list.size() > 1){
-        
-            if (list.indexOf("*") > 0){
-                
+    public static String converting(int numb,boolean vissza,String s){
+        BigInteger input;
+        String a;
+        if(vissza){ 
+            try{           
+                input = new BigInteger(s,numb);
+                a=input.toString();
+               }catch(NumberFormatException e){
+                a ="Hiba: Nem megfelelő karakter(ek)";
+               }
             }
-        }
         
-        return null;
+        else{                              
+            input = new BigInteger(s);   
+            a = input.toString(numb);
+        }  
+        return a;
     }
     
-    public List<String> chopping(String s) {
+    public static List<String> calculate(List<String> list) {
+        
+        if(list.size() > 1){
+        
+            while (list.indexOf("*") >= 0){
+                list.set(list.indexOf("*")-1, 
+                        multi(Double.parseDouble(list.get(list.indexOf("*")-1)), 
+                                Double.parseDouble(list.get(list.indexOf("*")+1))));
+                list.remove(list.indexOf("*")+1);
+                list.remove(list.indexOf("*"));               
+            }
+             while (list.indexOf("/") >= 0){
+                list.set(list.indexOf("/")-1, 
+                        div(Double.parseDouble(list.get(list.indexOf("/")-1)), 
+                                Double.parseDouble(list.get(list.indexOf("/")+1))));
+                list.remove(list.indexOf("/")+1);
+                list.remove(list.indexOf("/"));                
+            }
+             while (list.indexOf("-") >= 0){
+                list.set(list.indexOf("-")-1, 
+                        sub(Double.parseDouble(list.get(list.indexOf("-")-1)), 
+                                Double.parseDouble(list.get(list.indexOf("-")+1))));
+                list.remove(list.indexOf("-")+1);
+                list.remove(list.indexOf("-"));                
+            }         
+              while (list.indexOf("+") >= 0){
+                list.set(list.indexOf("+")-1, 
+                        add(Double.parseDouble(list.get(list.indexOf("+")-1)), 
+                                Double.parseDouble(list.get(list.indexOf("+")+1))));
+                list.remove(list.indexOf("+")+1);
+                list.remove(list.indexOf("+"));                
+            }              
+        }
+        
+        return list;
+    }
+    
+    public static List<String> chopping(String s) {
         
         List<String> ret = new ArrayList<String>();		 
 	List<String> nmb = new ArrayList<String>(Arrays.asList(s.split("[+-////*/]")));
@@ -49,5 +94,17 @@ public class Calculate {
 	ret.add(nmb.get(nmb.size()-1));
 	return ret;
         
+    }
+    public static String add(double a, double b) {
+        return Double.toString(a+b);
+    }
+    public static String sub(double a, double b) {
+        return Double.toString(a-b);
+    }
+    public static String multi(double a, double b) {
+        return Double.toString(a*b);
+    }
+    public static String div(double a, double b) {
+        return Double.toString(a/b);
     }
 }
