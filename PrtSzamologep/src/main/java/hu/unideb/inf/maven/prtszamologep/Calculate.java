@@ -25,7 +25,7 @@ public class Calculate {
                 input = new BigInteger(s,numb);
                 a=input.toString();
                }catch(NumberFormatException e){
-                a ="Hiba: Nem megfelelő karakter(ek)";
+                a ="Hiba: karakter nem található az adott számrendszerben!";
                }
             }
         
@@ -36,7 +36,7 @@ public class Calculate {
         return a;
     }
     
-    public static List<String> calculate(List<String> list) {
+    public static String calculate(List<String> list) {
         
         if(list.size() > 1){
         
@@ -69,8 +69,10 @@ public class Calculate {
                 list.remove(list.indexOf("+"));                
             }              
         }
-        
-        return list;
+        if(!list.get(0).equals("Infinity"))
+            return list.get(0);
+        else
+            return "Hiba: 0-val nem osztunk!";
     }
     
     public static List<String> chopping(String s) {

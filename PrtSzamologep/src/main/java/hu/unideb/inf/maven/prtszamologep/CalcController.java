@@ -181,16 +181,22 @@ public class CalcController implements Initializable {
     
     @FXML
     private void calculate(ActionEvent event) {
-        if(convert.isSelected()) {
-            
-            if(binbut.isSelected() == true) setNum(2);
-            if(oktbut.isSelected() == true) setNum(8);
-            if(hexbut.isSelected() == true) setNum(16); 
-            masodik.setText(Calculate.converting(getNum(),reverse.isSelected(),elso.getText()));           
-        }
+        Calculator calc = new Calculator();
         
-        if(calculate.isSelected())
-        masodik.setText(Calculate.calculate(Calculate.chopping(elso.getText())).get(0));
+        try{    
+            if(convert.isSelected()) {
+
+                if(binbut.isSelected() == true) setNum(2);
+                if(oktbut.isSelected() == true) setNum(8);
+                if(hexbut.isSelected() == true) setNum(16); 
+                masodik.setText(Calculate.converting(getNum(),reverse.isSelected(),elso.getText()));           
+            }
+
+            if(calculate.isSelected())
+            masodik.setText(Calculate.calculate(Calculate.chopping(elso.getText())));
+        }catch(Exception e) {
+            masodik.setText("Hiba: Nem megfelelő karakter(ek)!");
+        }
     }
     
     

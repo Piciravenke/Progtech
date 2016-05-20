@@ -16,14 +16,16 @@ public class Calculator {
     private List<String> expression;
     private String result;
     private String method;
+    private String date;
 
     public Calculator() {
     }
 
-    public Calculator(List<String> expression, String result, String method) {
+    public Calculator(List<String> expression, String result, String method, String date) {
         this.expression = expression;
         this.result = result;
         this.method = method;
+        this.date = date;
     }
 
     public List<String> getExpression() {
@@ -49,4 +51,14 @@ public class Calculator {
     public void setMethod(String method) {
         this.method = method;
     }    
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+    
+    
 }
