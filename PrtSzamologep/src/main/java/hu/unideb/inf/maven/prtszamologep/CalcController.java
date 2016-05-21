@@ -1,5 +1,6 @@
 package hu.unideb.inf.maven.prtszamologep;
 
+import java.io.IOException;
 import java.math.BigInteger;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -7,10 +8,16 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -32,6 +39,8 @@ public class CalcController implements Initializable {
     private Button calcbutton;
     @FXML
     private Button clearbutton;
+    @FXML
+    private Button historybutton;
     @FXML
     private Button zero;
     @FXML
@@ -208,7 +217,26 @@ public class CalcController implements Initializable {
         }
         
        service.createCalculator( elso.getText(), masodik.getText(), method, LocalDateTime.now().toString());
+        em.close();
+        emf.close();
+    }
+    
+    @FXML
+    private void history(ActionEvent event) {
         
+         try {
+            Stage stage;
+            Parent root;
+            stage = (Stage) historybutton.getScene().getWindow();            
+            FXMLLoader fl1 = new FXMLLoader(getClass().getResource("/fxml/History.fxml"));
+            root = fl1.load();
+            Scene scene = new Scene(root);            
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(HistoryController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
     }
     
     

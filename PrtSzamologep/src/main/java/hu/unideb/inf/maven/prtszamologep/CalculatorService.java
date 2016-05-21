@@ -22,8 +22,9 @@ public class CalculatorService {
         
     }            
     
-    public List<Calculator> findAllCalculator() {
+    public static List<Calculator> findAllCalculator() {
         TypedQuery<Calculator> query = em.createQuery("SELECT e FROM hu.unideb.inf.maven.prtszamologep.Calculator e", Calculator.class);
+      // TypedQuery<Calculator> query = em.createQuery("SELECT * FROM Calculator", Calculator.class);
         return query.getResultList();
     }
 }

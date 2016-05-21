@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -10,7 +9,7 @@
 
 <AnchorPane id="AnchorPane" fx:id="calc" blendMode="DARKEN" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.unideb.inf.maven.prtszamologep.CalcController">
     <children>
-      <Button fx:id="calcbutton" layoutX="250.0" layoutY="550.0" maxWidth="-Infinity" minWidth="-Infinity" onAction="#calculate" prefHeight="26.0" prefWidth="100.0" text="Calculate" />
+      <Button fx:id="calcbutton" layoutX="250.0" layoutY="480.0" maxWidth="-Infinity" minWidth="-Infinity" onAction="#calculate" prefHeight="26.0" prefWidth="100.0" text="Calculate" />
       <TextField fx:id="elso" layoutX="100.0" layoutY="150.0" prefHeight="25.0" prefWidth="400.0" />
       <TextField fx:id="masodik" layoutX="100.0" layoutY="175.0" prefHeight="25.0" prefWidth="400.0" />
       <RadioButton fx:id="binbut" layoutX="23.0" layoutY="310.0" mnemonicParsing="false" text="Binary" />
@@ -37,6 +36,6 @@
       <Button fx:id="sub" layoutX="445.0" layoutY="340.0" mnemonicParsing="false" onAction="#subAction" prefHeight="30.0" prefWidth="62.0" text="-" />
       <Button fx:id="multi" layoutX="445.0" layoutY="370.0" mnemonicParsing="false" onAction="#multiAction" prefHeight="30.0" prefWidth="62.0" text="*" />
       <Button fx:id="divide" layoutX="445.0" layoutY="400.0" mnemonicParsing="false" onAction="#divAction" prefHeight="30.0" prefWidth="62.0" text="/" />
+      <Button fx:id="historybutton" layoutX="250.0" layoutY="529.0" maxWidth="-Infinity" minWidth="-Infinity" onAction="#history" prefHeight="26.0" prefWidth="100.0" text="History" />
     </children>
 </AnchorPane>
-
