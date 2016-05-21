@@ -15,12 +15,10 @@ import javax.persistence.*;
 public class Calculator {
     
     @Id
-    @Column(name = "num")
-    
-	@SequenceGenerator(name = "IdGenerator", sequenceName = "num_generator", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "IdGenerator")
-    //@GeneratedValue(strategy = GenerationType.AUTO)
-    int id;
+    @Column(name = "num")    
+    @SequenceGenerator(name = "IdGenerator", sequenceName = "num_generator", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "IdGenerator")
+    private int id;
     @Column(name = "expr")
     private String expression;
     @Column(name = "res")
