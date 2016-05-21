@@ -6,13 +6,19 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * Class for the calculating methods.
  * 
- * 
- * @author miki
  */
 public class Calculate {
    
-    
+    /**
+     * Returns the converted value of the input expression.
+     * 
+     * @param numb the number of the scale, which we using to convert.
+     * @param vissza the boolean which tells us to use the reverse convert.
+     * @param s the input expression.
+     * @return the result string.
+     */
     public static String converting(int numb,boolean vissza,String s){
         BigInteger input;
         String a;
@@ -32,6 +38,12 @@ public class Calculate {
         return a;
     }
     
+    /**
+     * Returns the calculated value of the formatted input expression.
+     *
+     * @param list the formatted list of the input epxression.
+     * @return the result string.
+     */
     public static String calculate(List<String> list) {
         
         if(list.size() > 1){
@@ -71,6 +83,12 @@ public class Calculate {
             return "Hiba: 0-val nem osztunk!";
     }
     
+    /**
+     * Returns the formatted input expression.
+     * 
+     * @param s the inpust expression.
+     * @return the formatted input expression.
+     */
     public static List<String> chopping(String s) {
         
         List<String> ret = new ArrayList<String>();		 
@@ -93,15 +111,47 @@ public class Calculate {
 	return ret;
         
     }
+    
+    /**
+     * Returns the result of a + b.
+     * 
+     * @param a the first input double
+     * @param b the second input double
+     * @return a + b.
+     */
     public static String add(double a, double b) {
         return Double.toString(a+b);
     }
+    
+    /**
+     * Returns the result of a - b.
+     * 
+     * @param a the first input double
+     * @param b the second input double
+     * @return a - b.
+     */
     public static String sub(double a, double b) {
         return Double.toString(a-b);
     }
+    
+    /**
+     * Returns the result of a * b.
+     * 
+     * @param a the first input double
+     * @param b the second input double
+     * @return a * b.
+     */
     public static String multi(double a, double b) {
         return Double.toString(a*b);
     }
+    
+    /**
+     * Returns the result of a / b.
+     * 
+     * @param a the first input double
+     * @param b the second input double
+     * @return a / b.
+     */
     public static String div(double a, double b) {
         return Double.toString(a/b);
     }
