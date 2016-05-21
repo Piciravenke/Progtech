@@ -64,10 +64,8 @@ public class HistoryController implements Initializable {
         EntityManager em = emf.createEntityManager();
         CalculatorService service = new CalculatorService(em);
         List<Calculator> calc = service.findAllCalculator();
-        System.out.println(calc.size());
         ObservableList<Calculator> obs = FXCollections.observableArrayList();
         obs.addAll(calc);
-        System.out.println(obs.size());
         historytable.setItems(obs);
         idcol.setCellValueFactory(new PropertyValueFactory<Calculator, Integer>("id"));
         exprcol.setCellValueFactory(new PropertyValueFactory<Calculator, String>("expression"));
