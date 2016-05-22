@@ -217,6 +217,7 @@ public class CalcController implements Initializable {
         }
         
        service.createCalculator( elso.getText(), masodik.getText(), method, LocalDateTime.now().toString());
+       em.getTransaction().commit();
         em.close();
         emf.close();
     }

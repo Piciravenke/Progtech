@@ -4,13 +4,15 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.slf4j.LoggerFactory;
 
 /**
  * Class for the calculating methods.
  * 
  */
 public class Calculate {
-   
+    
+    private static org.slf4j.Logger logger = LoggerFactory.getLogger(Calculate.class);
     /**
      * Returns the converted value of the input expression.
      * 
@@ -26,7 +28,9 @@ public class Calculate {
             try{           
                 input = new BigInteger(s,numb);
                 a=input.toString();
+                logger.info("Converting");
                }catch(NumberFormatException e){
+                   logger.error("invalid character");
                 a ="Hiba: karakter nem található az adott számrendszerben!";
                }
             }
@@ -34,6 +38,7 @@ public class Calculate {
         else{                              
             input = new BigInteger(s);   
             a = input.toString(numb);
+            logger.info("Converting");
         }  
         return a;
     }
@@ -77,10 +82,14 @@ public class Calculate {
                 list.remove(list.indexOf("+"));                
             }              
         }
-        if(!list.get(0).equals("Infinity"))
+        if(!list.get(0).equals("Infinity")){
+           logger.info("calculating");
             return list.get(0);
-        else
+        }          
+        else{
+            logger.error("dividing with zero");
             return "Hiba: 0-val nem osztunk!";
+        }
     }
     
     /**
@@ -108,6 +117,7 @@ public class Calculate {
 	    		ret.add(curr);
 	    	}
 	ret.add(nmb.get(nmb.size()-1));
+        logger.info("chopping");
 	return ret;
         
     }
@@ -120,6 +130,7 @@ public class Calculate {
      * @return a + b.
      */
     public static String add(double a, double b) {
+        logger.info("Addition");
         return Double.toString(a+b);
     }
     
@@ -131,6 +142,7 @@ public class Calculate {
      * @return a - b.
      */
     public static String sub(double a, double b) {
+        logger.info("Substract");
         return Double.toString(a-b);
     }
     
@@ -142,6 +154,7 @@ public class Calculate {
      * @return a * b.
      */
     public static String multi(double a, double b) {
+        logger.info("Mulitply");
         return Double.toString(a*b);
     }
     
@@ -153,6 +166,7 @@ public class Calculate {
      * @return a / b.
      */
     public static String div(double a, double b) {
+        logger.info("Divide");
         return Double.toString(a/b);
     }
 }

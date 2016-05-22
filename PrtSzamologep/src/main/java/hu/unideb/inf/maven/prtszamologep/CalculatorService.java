@@ -4,6 +4,7 @@ package hu.unideb.inf.maven.prtszamologep;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import org.slf4j.LoggerFactory;
 
 /**
  * Class for the Calculator Services.
@@ -12,6 +13,7 @@ import javax.persistence.TypedQuery;
  */
 public class CalculatorService {
     
+    private static org.slf4j.Logger logger = LoggerFactory.getLogger(Calculate.class);
     private static EntityManager em;
 
     public CalculatorService(EntityManager em) {
@@ -30,8 +32,8 @@ public class CalculatorService {
         em.getTransaction().begin();
         Calculator calc = new Calculator(expression, result, method, date);        
         em.persist(calc);
-        em.getTransaction().commit();
         
+         logger.info("New Calculator committed");
     }            
     
     /**
@@ -41,7 +43,7 @@ public class CalculatorService {
      */
     public static List<Calculator> findAllCalculator() {
         TypedQuery<Calculator> query = em.createQuery("SELECT e FROM hu.unideb.inf.maven.prtszamologep.Calculator e", Calculator.class);
-      // TypedQuery<Calculator> query = em.createQuery("SELECT * FROM Calculator", Calculator.class);
+        logger.info("Calculators listed");
         return query.getResultList();
     }
 }
