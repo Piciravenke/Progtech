@@ -15,7 +15,12 @@ public class CalculatorService {
     
     private static org.slf4j.Logger logger = LoggerFactory.getLogger(Calculate.class);
     private static EntityManager em;
-
+    
+    /**
+     * One paramtered constructor for class CalculatorService.
+     * 
+     * @param em  the entitymanager of this object
+     */
     public CalculatorService(EntityManager em) {
         this.em = em;
     }

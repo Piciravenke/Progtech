@@ -24,10 +24,23 @@ public class Calculator {
     private String method;
     @Column(name = "dat")
     private String date;
-
+    
+    /**
+     *  Default constructor for entity class Calculator.
+     * 
+     */
     public Calculator() {
     }
-
+    
+    
+    /**
+     * Four parametered constructor for entity class Calculator.
+     * 
+     * @param expression The expression of the new Calculator object
+     * @param result The result of the new Calculator object
+     * @param method The method of the new Calculator object
+     * @param date The date of the new Calculator object
+     */
     public Calculator(String expression, String result, String method, String date) {
         
         this.expression = expression;
