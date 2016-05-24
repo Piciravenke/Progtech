@@ -1,6 +1,8 @@
 
-package hu.unideb.inf.maven.prtszamologep;
+package hu.unideb.inf.maven.prtszamologep.model;
 
+import hu.unideb.inf.maven.prtszamologep.model.Calculator;
+import hu.unideb.inf.maven.prtszamologep.model.Calculate;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -47,7 +49,7 @@ public class CalculatorService {
      * @return the list of the Calculator objects in the table.
      */
     public static List<Calculator> findAllCalculator() {
-        TypedQuery<Calculator> query = em.createQuery("SELECT e FROM hu.unideb.inf.maven.prtszamologep.Calculator e", Calculator.class);
+        TypedQuery<Calculator> query = em.createQuery("SELECT e FROM hu.unideb.inf.maven.prtszamologep.model.Calculator e", Calculator.class);
         logger.info("Calculators listed");
         return query.getResultList();
     }

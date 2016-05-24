@@ -1,5 +1,7 @@
-package hu.unideb.inf.maven.prtszamologep;
+package hu.unideb.inf.maven.prtszamologep.view;
 
+import hu.unideb.inf.maven.prtszamologep.model.CalculatorService;
+import hu.unideb.inf.maven.prtszamologep.model.Calculator;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;

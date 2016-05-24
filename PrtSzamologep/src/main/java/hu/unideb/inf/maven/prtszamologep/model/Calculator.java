@@ -1,5 +1,5 @@
 
-package hu.unideb.inf.maven.prtszamologep;
+package hu.unideb.inf.maven.prtszamologep.model;
 
 import javax.persistence.*;
 

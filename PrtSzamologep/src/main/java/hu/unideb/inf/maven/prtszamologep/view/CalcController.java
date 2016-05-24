@@ -1,5 +1,7 @@
-package hu.unideb.inf.maven.prtszamologep;
+package hu.unideb.inf.maven.prtszamologep.view;
 
+import hu.unideb.inf.maven.prtszamologep.model.CalculatorService;
+import hu.unideb.inf.maven.prtszamologep.model.Calculate;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.net.URL;
@@ -211,8 +213,7 @@ public class CalcController implements Initializable {
                 method = "Calculate";
                 masodik.setText(Calculate.calculate(Calculate.chopping(elso.getText())));
             }
-        }catch(Exception e) {
-            method = "Calculate";
+        }catch(Exception e) {            
             masodik.setText("Hiba: Nem megfelelő karakter(ek)!");
         }
         

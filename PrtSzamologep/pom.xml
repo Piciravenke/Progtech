@@ -41,7 +41,7 @@
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <mainClass>hu.unideb.inf.maven.prtszamologep.MainApp</mainClass>
+        <mainClass>hu.unideb.inf.maven.prtszamologep.view.MainApp</mainClass>
     </properties>
 
     <build>
@@ -111,7 +111,7 @@
                         <configuration>
                             <archive>
                                 <manifest>
-                                    <mainClass>hu.unideb.inf.maven.prtszamologep.MainApp</mainClass>
+                                    <mainClass>hu.unideb.inf.maven.prtszamologep.view.MainApp</mainClass>
                                 </manifest>
                             </archive>
                             <descriptorRefs>
@@ -213,7 +213,7 @@
                 <version>0.7.6.201602180812</version>
                 <configuration>
                     <includes>
-                         <include>**/prtszamologep/*.*</include>
+                         <include>**/prtszamologep/model/*.*</include>
                     </includes>
                 </configuration>
                 
